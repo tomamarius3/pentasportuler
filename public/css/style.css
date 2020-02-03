@@ -1,0 +1,11 @@
+header {
+    height: 100px;
+}
+
+.divider {
+    height: 100px;
+}
+
+.hidden {
+    display: none;
+}
