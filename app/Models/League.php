@@ -50,9 +50,10 @@ class League extends Model
             $phase = Phase::create([
                 'league_id' => $this->id,
                 'number' => $i,
-                'date' => $today->next(Carbon::MONDAY)->addWeek()
+                'date' => $today->next(Carbon::MONDAY)
             ]);
             $phase->createMatches($randomOrderPlayers);
+            $today->addWeek();
         }
     }
 

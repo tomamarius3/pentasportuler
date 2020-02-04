@@ -9,7 +9,7 @@
     @foreach($league->phases as $phase)
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h3>Etapa nr. {{$phase->number}} din data: {{$phase->date->format('d.m.Y')}}</h3>
+                <h3>Etapa nr. {{$phase->number}}</h3>
                 <table class="table table-striped table-bordered text-center">
                     <thead>
                         <tr>
