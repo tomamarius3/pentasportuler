@@ -32,59 +32,37 @@ class Phase extends Model
 
     public function createMatches(Collection $players)
     {
+        if($players->count() % 2 == 1) {
+            $player = new \StdClass();
+            $player->id = NULL;
+            $players->push($player);
+        }
         $totalPlayers = $players->count();
-        $totalMatches = $totalPlayers / 2;
-        if($this->number <= $totalMatches) {
-            for($i = 0; $i < $totalMatches; $i++) {
-                $homeIndex = ($i + $this->number - 1) % $totalPlayers;
-                $awayIndex = ($totalPlayers - $i - 1 + $this->number - 1 ) % $totalPlayers;
-                $homePlayer = $players->get($homeIndex);
-                $awayPlayer = $players->get($awayIndex);
-                Match::create([
-                    'phase_id' => $this->id,
-                    'home_player_id' => $homePlayer->id,
-                    'away_player_id' => $awayPlayer->id,
-                    'home_score' => 0,
-                    'away_score' => 0,
-                ]);
-            }
-        } else {
-            $playersClone = clone $players;
-            for($i = 0; $i < $totalMatches - 1; $i++) {
-                $homeIndex = ($i + $this->number - 1) % $totalPlayers;
-                $awayIndex = ($totalPlayers - $i - 1 + $this->number - 1 - 1) % $totalPlayers;
-                $homePlayer = $players->get($homeIndex);
-                $awayPlayer = $players->get($awayIndex);
-                $playersClone->put($homeIndex, false);
-                $playersClone->put($awayIndex, false);
-                Match::create([
-                    'phase_id' => $this->id,
-                    'home_player_id' => $homePlayer->id,
-                    'away_player_id' => $awayPlayer->id,
-                    'home_score' => 0,
-                    'away_score' => 0,
-                ]);
-            }
-            $p1 = false;
-            $p2 = false;
-            foreach($playersClone as $player) {
-                if($player != false) {
-                    if($p1 == false) {
-                        $p1 = $player;
-                    } else {
-                        $p2 = $player;
-                    }
-                }
-            }
-            if($p1 != false && $p2 != false) {
-                Match::create([
-                    'phase_id' => $this->id,
-                    'home_player_id' => $p1->id,
-                    'away_player_id' => $p2->id,
-                    'home_score' => 0,
-                    'away_score' => 0,
-                ]);
-            }
+        $totalMatches = (int)($totalPlayers / 2);
+        $homePlayers = collect();
+        $homePlayers->push($players->get(0));
+        $players->shift();
+        $number = $this->number;
+        while(--$number) {
+            $player = $players->pop();
+            $players->prepend($player);
+        }
+        for($i = 0; $i < $totalMatches - 1; $i++) {
+            $homePlayers->push($players->get($i));
+        }
+        $awayPlayers = collect();
+        for($i = 2 * $totalMatches - 2; $i >= $totalMatches - 1 ; $i--) {
+            $awayPlayers->push($players->get($i));
+        }
+
+        for($i = 0; $i < $totalMatches; $i++) {
+            Match::create([
+                'phase_id' => $this->id,
+                'home_player_id' => $homePlayers->get($i)->id,
+                'away_player_id' => $awayPlayers->get($i)->id,
+                'home_score' => 0,
+                'away_score' => 0,
+            ]);
         }
     }
 }

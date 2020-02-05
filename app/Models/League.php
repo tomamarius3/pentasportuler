@@ -52,7 +52,7 @@ class League extends Model
                 'number' => $i,
                 'date' => $today->next(Carbon::MONDAY)
             ]);
-            $phase->createMatches($randomOrderPlayers);
+            $phase->createMatches(clone $randomOrderPlayers);
             $today->addWeek();
         }
     }

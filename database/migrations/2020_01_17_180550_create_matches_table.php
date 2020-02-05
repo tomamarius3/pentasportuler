@@ -15,9 +15,9 @@ class CreateMatchesTable extends Migration
     {
         Schema::create('matches', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('home_player_id');
+            $table->integer('home_player_id')->nullable();
             $table->foreign('home_player_id')->references('id')->on('players');
-            $table->integer('away_player_id');
+            $table->integer('away_player_id')->nullable();
             $table->foreign('away_player_id')->references('id')->on('players');
             $table->integer('phase_id');
             $table->foreign('phase_id')->references('id')->on('phases');

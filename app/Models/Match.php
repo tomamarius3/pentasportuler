@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\PlayableScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
@@ -17,6 +18,17 @@ class Match extends Model
         'home_score',
         'away_score'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new PlayableScope());
+    }
 
     public static function getMatchForPlayerIds($aId, $bId)
     {

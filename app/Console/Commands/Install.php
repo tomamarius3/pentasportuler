@@ -48,16 +48,19 @@ class Install extends Command
             Artisan::call('command:create-league 1 1 "Liga 1" liga-1 0 2');
             Artisan::call('command:create-league 1 2 "Liga 2 A" liga-2-a 1 2');
             Artisan::call('command:create-league 1 2 "Liga 2 B" liga-2-b 1 2');
-            Artisan::call('command:create-league 1 3 "Liga 3" liga-1 4 0');
+            Artisan::call('command:create-league 1 3 "Liga 3 A" liga-1 4 0');
+            Artisan::call('command:create-league 1 3 "Liga 3 B" liga-1 4 0');
             Artisan::call('command:import-players players.csv');
             Artisan::call('command:add-players-to-league 1 [1,2,3,4,5,6,7,8,9,10,11,12]');
             Artisan::call('command:add-players-to-league 2 [13,14,15,16,17,18,19,20,21,22,23,24]');
             Artisan::call('command:add-players-to-league 3 [25,26,27,28,29,30,31,32,33,34,35,36]');
-            Artisan::call('command:add-players-to-league 4 [37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52]');
+            Artisan::call('command:add-players-to-league 4 [37,38,39,40,41,42,43,44,45,46]');
+            Artisan::call('command:add-players-to-league 5 [47,48,49,50,51,52,53,54,55]');
             Artisan::call('command:generate-phases 1');
             Artisan::call('command:generate-phases 2');
             Artisan::call('command:generate-phases 3');
             Artisan::call('command:generate-phases 4');
+            Artisan::call('command:generate-phases 5');
         }
     }
 }

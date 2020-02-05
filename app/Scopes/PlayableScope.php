@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-class ActiveScope implements Scope
+class PlayableScope implements Scope
 {
 
     /**
@@ -20,7 +20,7 @@ class ActiveScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('active', 1);
+        $builder->whereHas('homePlayer')->whereHas('awayPlayer');
     }
 
 }
