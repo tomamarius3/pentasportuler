@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-8 offset-2">
+        <div class="col-lg-8 offset-lg-2 col-sm-12">
             <h2>Meciul #{{$match->id}} din etapa #{{$match->phase->number}} a ligii "{{$match->phase->league->name}}"</h2>
             <div class="row text-center">
-                <div class="col-md-5">
+                <div class="col-sm-5">
                     {{$match->homePlayer->getFullName()}}
                 </div>
-                <div class="col-md-2">
+                <div class="col-sm-2">
                     {{$match->home_score}} - {{$match->away_score}}
                 </div>
-                <div class="col-md-5">
+                <div class="col-sm-5">
                     {{$match->awayPlayer->getFullName()}}
                 </div>
             </div>

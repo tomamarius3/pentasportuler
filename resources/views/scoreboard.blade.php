@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row mt-3">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-8 offset-lg-2 col-sm-12 text-center">
             <h1>Tabela de scor pentru {{$league->name}}</h1>
         </div>
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-8 offset-lg-2 col-sm-12">
             <table class="table table-striped table-bordered text-center">
                 <thead>
                 <tr>
