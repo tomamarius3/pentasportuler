@@ -9,6 +9,7 @@
             <table class="table table-striped table-bordered text-center">
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th class="text-left col-lg-4">Nume</th>
                     <th class="col-lg-2">Meciuri jucate</th>
                     <th class="col-lg-2">Meciuri castigate</th>
@@ -17,8 +18,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($league->getScoreboardPlayers() as $player)
+                @foreach($league->getScoreboardPlayers() as $key => $player)
                     <tr>
+                        <td>{{$key + 1}}</td>
                         <td class="text-left">{{$player->firstName}} {{$player->lastName}}</td>
                         <td>{{$player->playedMatches}}</td>
                         <td>{{$player->wonMatches}}</td>
