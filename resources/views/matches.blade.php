@@ -10,28 +10,28 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2 col-sm-12">
                 <h3>Etapa nr. {{$phase->number}}</h3>
-                <table class="table table-striped table-bordered text-center">
+                <table class="table table-striped table-bordered text-center align-middle">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Acasa</th>
                             <th colspan="3"></th>
                             <th>Deplasare</th>
+                            <th>ID</th>
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($phase->matches as $match)
+                    @foreach($phase->matches->shuffle($phase->number) as $match)
                         <tr>
-                            <td>
-                                <a href="{{route('matches.edit', ['match' => $match])}}">
-                                    {{$match->id}}
-                                </a>
-                            </td>
                             <td>{{$match->homePlayer->getFullName()}}</td>
                             <td>{{$match->home_score}}</td>
                             <td>-</td>
                             <td>{{$match->away_score}}</td>
                             <td>{{$match->awayPlayer->getFullName()}}</td>
+                            <td>
+                                <button class="btn-sm btn-primary" onclick="window.location.href='{{route('matches.edit', ['match' => $match])}}'">
+                                    View
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
