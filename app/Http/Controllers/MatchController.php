@@ -10,7 +10,10 @@ use Illuminate\Support\Facades\Hash;
 class MatchController extends Controller
 {
 
-    private $password = '$2y$12$ax6sNou3lUiQYzSDtaf.B./k265/V1xnRtd.Nsl02xZW.VHsiTu6y';
+    private $passwords = [
+        '$2y$12$ax6sNou3lUiQYzSDtaf.B./k265/V1xnRtd.Nsl02xZW.VHsiTu6y',
+        '$2y$10$mNZcvAKH7qrq4RPYbxP9wODxVSDWgV/ml0M7Q4eO15ujuZHrfE5mi'
+    ];
 
     public function edit(Match $match)
     {
@@ -18,7 +21,13 @@ class MatchController extends Controller
     }
 
     public function update(Match $match, UpdateMatchRequest $request) {
-        if(Hash::check($request->input('password'), $this->password)) {
+        $passes = false;
+        foreach($this->passwords as $password) {
+            if(Hash::check($request->input('password'), $password)) {
+                $passes = true;
+            }
+        }
+        if($passes) {
             $match->home_score = $request->input('home_score');
             $match->away_score = $request->input('away_score');
             $match->save();
