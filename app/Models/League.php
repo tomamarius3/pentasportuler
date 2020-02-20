@@ -65,20 +65,20 @@ class League extends Model
                     (
                         (home_player_id = p.id AND home_score > away_score) OR
                         (away_player_id = p.id AND home_score < away_score)
-                    )
+                    ) AND home_player_id IS NOT NULL AND away_player_id IS NOT NULL
                     ) as wonMatches,
                 (SELECT COUNT(id) FROM matches WHERE
                     phase_id IN (SELECT id FROM phases where league_id = l.id) AND
                     (home_player_id = p.id OR away_player_id = p.id) AND
-                    home_score != away_score
+                    home_score != away_score AND home_player_id IS NOT NULL AND away_player_id IS NOT NULL
                     ) as playedMatches,
                 (SELECT SUM(home_score) FROM matches WHERE
                     phase_id IN (SELECT id FROM phases where league_id = l.id) AND
-                    (home_player_id = p.id)
+                    (home_player_id = p.id) AND home_player_id IS NOT NULL AND away_player_id IS NOT NULL
                     ) +
                     (SELECT SUM(away_score) FROM matches WHERE
                             phase_id IN (SELECT id FROM phases where league_id = l.id) AND
-                        (away_player_id = p.id)
+                        (away_player_id = p.id) AND home_player_id IS NOT NULL AND away_player_id IS NOT NULL
                     ) as wonSets
         FROM players p
                  JOIN league_player lp ON p.id = lp.player_id

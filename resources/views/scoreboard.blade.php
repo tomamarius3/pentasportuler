@@ -24,7 +24,7 @@
                         <td class="text-left">{{$player->firstName}} {{$player->lastName}}</td>
                         <td>{{$player->playedMatches}}</td>
                         <td>{{$player->wonMatches}}</td>
-                        <td>{{$player->wonSets ?? 0}}</td>
+                        <td>{{$player->wonSets}}</td>
                         <td>{{$player->wonMatches * 3}}</td>
                     </tr>
                 @endforeach
